@@ -1,0 +1,15 @@
+# Current reproducible profile: TalkVerse + h3_interactive service.
+# Target platform: Linux x86_64, Python 3.10, CUDA 12.8.
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+torch==2.7.1+cu128
+torchvision==0.22.1+cu128
+torchaudio==2.7.1+cu128
+
+-r third_party/TalkVerse/requirements.txt
+-r third_party/TalkVerse/requirements_s2v.txt
+
+aiohttp>=3.9,<4
+ninja
+flash-attn @ https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.0.post2/flash_attn-2.8.0.post2+cu12torch2.7cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
+

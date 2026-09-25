@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "h3-interactive"
+version = "0.1.0"
+description = "Private service and adapters for continuous, controllable audio-video generation."
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "aiohttp>=3.9,<4",
+    "numpy>=1.23.5,<2",
+]
+
+[project.scripts]
+h3-interactive-server = "h3_interactive.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

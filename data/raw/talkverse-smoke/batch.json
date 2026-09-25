@@ -1,0 +1,8 @@
+[
+  {
+    "name": "smoke_001",
+    "image": "/mnt/data/yetbye/h3-interactive/data/raw/talkverse-smoke/reference.png",
+    "audio": "/mnt/data/yetbye/h3-interactive/data/raw/talkverse-smoke/drive_6s.wav",
+    "prompt": "A woman speaks naturally to the camera with subtle facial motion."
+  }
+]

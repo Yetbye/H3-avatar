@@ -1,0 +1,46 @@
+# Environments and caches
+.conda/
+.venvs/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Upstream repos (cloned at fixed revisions, see README §6)
+third_party/
+
+# Models and datasets
+checkpoints/
+data/raw/*
+!data/raw/talkverse-smoke/
+data/processed/
+data/cache/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.lmdb
+
+# Runtime outputs
+logs/
+outputs/
+tmp/
+experiments/**/artifacts/
+experiments/**/logs/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build metadata
+*.egg-info/
