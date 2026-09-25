@@ -98,17 +98,17 @@ git clone https://github.com/Soul-AILab/SoulX-FlashHead.git && git -C SoulX-Flas
 
 HF 下载约定：token 写入服务器 `~/.hf_token`（模式 600，**绝不入库**）；大陆网络使用 `HF_ENDPOINT=https://hf-mirror.com`。
 
-| 资源 | 用途 | 大小 | 许可 | 状态 |
+| 资源 | 用途 | 大小 | 许可 | 是否必须 |
 | --- | --- | --- | --- | --- |
-| `Soul-AILab/SoulX-FlashHead-1_3B`（Model_Lite/Pro + VAE_LTX/Wan） | 系统基线实时模型 | 14.3 GB | Apache-2.0（非门控） | ✅ 已下载 |
-| `facebook/wav2vec2-base-960h` | FlashHead 音频编码器 | 1.1 GB | Apache-2.0 | ✅ 已下载 |
-| `zhenzhiwang/talkverse`（元数据 parquet） | 数据契约与样本规划 | 0.98 GB | Snap 非商业（gated） | ✅ 已下载 |
-| `MiniMaxAI/MiniMax-H3` Ref2VA 任务族 | 模型基线推理 | ~135 GB | H3 Community License（非门控） | ✅ 已下载（82/82 文件，SHA-256 校验） |
-| `MiniMaxAI/MiniMax-H3` FL2VA 任务族 | 可选：首末帧变体 | ~144 GB | 同上 | ⬜ 未开始 |
-| `Junchao-cs/SolarWM-H3-33B`（base/bid/tf/sgf 四包） | 训练主线权重（gated） | ~290 GB | 受 H3 许可约束 | ⬜ 训练阶段前下载 |
-| TalkVerse 源视频（OpenHumanVid 审批 + Panda70M 抓取 + UMT5 预计算） | 训练数据 | 未定 | 逐源审查 | ⬜ 数据阶段启动 |
-| `Wan-AI/Wan2.2-TI2V-5B`（ModelScope 镜像） | Wan 路线对照基线 | 32 GiB | Apache-2.0 | ✅ 已下载 |
-| TalkVerse LoRA（`3a58ee5`） | Wan 路线对照基线 | 2.0 GB | 非商业 | ✅ 已下载 |
+| `Soul-AILab/SoulX-FlashHead-1_3B`（Model_Lite/Pro + VAE_LTX/Wan） | 系统基线实时模型 | 14.3 GB | Apache-2.0（非门控） | 必需 |
+| `facebook/wav2vec2-base-960h` | FlashHead 音频编码器 | 1.1 GB | Apache-2.0 | 必需 |
+| `zhenzhiwang/talkverse`（元数据 parquet） | 数据契约与样本规划 | 0.98 GB | Snap 非商业（gated） | 必需 |
+| `MiniMaxAI/MiniMax-H3` Ref2VA 任务族 | 模型基线推理（全参考模式：文本 + 参考图/视频/音频） | ~135 GB | H3 Community License（非门控） | 必需 |
+| `MiniMaxAI/MiniMax-H3` FL2VA 任务族 | 首末帧模式（0/1/2 张输入图，t2va 变体） | ~144 GB | 同上 | 可选 |
+| `Junchao-cs/SolarWM-H3-33B`（base/bid/tf/sgf 四包） | 训练主线权重（gated） | ~290 GB | 受 H3 许可约束 | 必需（训练阶段） |
+| TalkVerse 源视频（OpenHumanVid 审批 + Panda70M 抓取 + UMT5 预计算） | 训练数据 | 未定 | 逐源审查 | 必需（训练阶段） |
+| `Wan-AI/Wan2.2-TI2V-5B`（ModelScope 镜像） | Wan 路线对照基线 | 32 GiB | Apache-2.0 | 可选 |
+| TalkVerse LoRA（`3a58ee5`） | Wan 路线对照基线 | 2.0 GB | 非商业 | 可选 |
 
 下载约定：在服务器上通过 `snapshot_download` 拉取（token 从 `~/.hf_token` 读取、不入库，日志写 `logs/`），每条资源下载后固定 revision 并生成 SHA-256 清单（记录见 [`PROJECT_STATUS.md`](PROJECT_STATUS.md)）。
 
