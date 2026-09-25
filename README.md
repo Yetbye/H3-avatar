@@ -20,7 +20,7 @@ MiniMax H3 原生输出为 4–15 秒的离线音画生成。本项目在其上�
 
 - **系统层链路已全通（mock 全链路）**：统一协议、session 管理、私有 HTTP API、异步 SDK、SSH 隧道跨主机冒烟，12+ 项 CPU 回归全部 PASS。
 - **FlashHead 真实 runtime 已实现**：单 GPU worker、上游 chunk 状态机、8 s 音频窗口、EOS 补齐、reset/PTS 语义；headless 基线实验（60 s 连续 + 25 FPS + reset <2 s 门槛）就绪，待 A100 计算空闲运行。
-- **许可证审查完成**：H3 Community License 区域（服务器/开发/服务均在中国大陆）与负责人确认两项已通过；H3 Ref2VA 权重下载 98%。
+- **许可证审查完成**：H3 Community License 区域（服务器/开发/服务均在中国大陆）与负责人确认两项已通过；H3 Ref2VA 权重下载完成（82/82 文件）。
 - 两条基线（H3/SolarWM 模型基线、FlashHead 系统基线）PASS 前，不启动音频条件训练、AR 改造或 DMD 蒸馏。
 
 ## 3. 系统架构
@@ -103,7 +103,7 @@ HF 下载约定：token 写入服务器 `~/.hf_token`（模式 600，**绝不入
 | `Soul-AILab/SoulX-FlashHead-1_3B`（Model_Lite/Pro + VAE_LTX/Wan） | 系统基线实时模型 | 14.3 GB | Apache-2.0（非门控） | ✅ 已下载 |
 | `facebook/wav2vec2-base-960h` | FlashHead 音频编码器 | 1.1 GB | Apache-2.0 | ✅ 已下载 |
 | `zhenzhiwang/talkverse`（元数据 parquet） | 数据契约与样本规划 | 0.98 GB | Snap 非商业（gated） | ✅ 已下载 |
-| `MiniMaxAI/MiniMax-H3` Ref2VA 任务族 | 模型基线推理 | ~144 GB | H3 Community License（非门控） | ⏳ 98% |
+| `MiniMaxAI/MiniMax-H3` Ref2VA 任务族 | 模型基线推理 | ~135 GB | H3 Community License（非门控） | ✅ 已下载（82/82 文件，SHA-256 校验） |
 | `MiniMaxAI/MiniMax-H3` FL2VA 任务族 | 可选：首末帧变体 | ~144 GB | 同上 | ⬜ 未开始 |
 | `Junchao-cs/SolarWM-H3-33B`（base/bid/tf/sgf 四包） | 训练主线权重（gated） | ~290 GB | 受 H3 许可约束 | ⬜ 训练阶段前下载 |
 | TalkVerse 源视频（OpenHumanVid 审批 + Panda70M 抓取 + UMT5 预计算） | 训练数据 | 未定 | 逐源审查 | ⬜ 数据阶段启动 |

@@ -37,7 +37,7 @@
 - FlashHead 上游接口审计和无 GPU backend 合同已完成：20 ms PCM、sequence/PTS、40 ms 帧、timeout、reset、close 与显式未映射控制均有 fake-runtime 测试；完整 CPU 回归 15/15 通过。
 - FlashHead 真实 runtime 已实现（远程 `src/h3_interactive/backends/flashhead_runtime.py`）：单 GPU worker 线程串行化上游 chunk 状态（lite 24 帧/0.96 s 音频、pro 28 帧/1.12 s）、8 s 滚动音频窗口、运动帧 latent 携带、EOS 静音补齐、reset 清窗口且 PTS 归零、JPEG 帧输出；无 GPU 时干净失败且错误经 pull 上抛。`h3-interactive-server --backend flashhead` 已通过 `FLASHHEAD_*` 环境变量接入真实工厂。
 - FlashHead headless 基线实验已就绪（远程 `experiments/system-interface/flashhead-headless-001/`）：合同（预注册口径：8 s 静音冷启动、chunk 突发到达、播放调度侧 p95、lite 专属 RTF 门限）、runner（双重 GPU 护栏、实时节奏推送、播放排程仿真、MP4+stills+metrics.json+SHA-256）与 CPU 侧单测（chunk 布局、EOS 补齐、无 GPU 干净失败、close 幂等）。GPU 运行待 A100 空闲。
-- FlashHead 权重（Model_Lite/Model_Pro/VAE_LTX/VAE_Wan）与 wav2vec2-base-960h 已下载完成；TalkVerse 元数据下载完成；H3 Ref2VA 权重下载进行中（非门控，HF 镜像）。
+- FlashHead 权重（Model_Lite/Model_Pro/VAE_LTX/VAE_Wan）与 wav2vec2-base-960h 已下载完成；TalkVerse 元数据下载完成；H3 Ref2VA 权重已下载完成（82/82 文件、约 135 GiB，HF 镜像，中断后断点续传 + SHA-256 校验）。
 - 已固定代码 revision：MiniMax-H3 `d21241f`、SolarWM `ce1da4e`、TalkVerse `3607ff2`、SoulX-FlashHead `9bc03de`。
 - 当前 `talkverse` profile：Python 3.10.21、PyTorch 2.7.1+cu128、Transformers 4.51.3、Diffusers 0.39.0、FlashAttention 2.8.0.post2；CUDA 可见且 TalkVerse `generate.py --help` 通过。
 - Wan2.2-TI2V-5B 基础权重已从官方 ModelScope 下载完成：22 个上游文件，目录约 32 GiB，safetensors 分片齐全并生成 SHA-256 清单；尚未进行模型加载或推理。

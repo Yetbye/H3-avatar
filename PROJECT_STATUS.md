@@ -8,7 +8,7 @@
 
 项目当前处于 **Stage 0：需求澄清、技术调研和基线准备**。
 
-远程服务器已固定 MiniMax-H3、SolarWM、TalkVerse 和 SoulX-FlashHead 源码，并建立项目唯一 Conda 环境。TalkVerse profile 已通过依赖安装、核心模块导入和 CLI 烟雾测试；Wan2.2-TI2V-5B、TalkVerse LoRA 与 Wav2Vec2 已完成下载、校验和独立加载检查，数据集和真实生成结果仍不存在。
+远程服务器已固定 MiniMax-H3、SolarWM、TalkVerse 和 SoulX-FlashHead 源码，并建立项目唯一 Conda 环境。TalkVerse profile 已通过依赖安装、核心模块导入和 CLI 烟雾测试；MiniMax-H3 Ref2VA、FlashHead、Wan2.2-TI2V-5B、TalkVerse LoRA 与 Wav2Vec2 权重已完成下载与校验，数据集和真实生成结果仍不存在。
 
 因此，不能把现有 `minWM` 的训练成果当作 MiniMax H3 项目已经实现；它只能作为前置经验与参考资产。
 
@@ -40,12 +40,12 @@
 | `/mnt/data/yetbye/minWM` | 存在，Wan2.1 Action2V 路线，Git 工作树干净 |
 | `/mnt/data/yetbye/h3-interactive` | 独立 Git 工作区；源码、开发文档、依赖锁、Wan2.2-TI2V-5B 权重和 TalkVerse smoke fixture 已建立；单一 Conda 环境位于 `/mnt/data/yetbye/envs/h3-interactive` |
 | minWM DMD LoRA | 历史训练到 step 1400，测试 14/14 通过 |
-| MiniMax H3 官方代码/权重 | 代码已固定到 `d21241f`；权重未下载 |
+| MiniMax H3 官方代码/权重 | 代码已固定到 `d21241f`；Ref2VA 任务族权重已下载（82/82 文件，约 135 GiB，断点续传 + SHA-256 校验）；FL2VA 未下载 |
 | SolarWM / SolarWM-H3 | 代码已固定到 `ce1da4e`；权重未下载 |
 | TaoMate-H3 | 未发现 |
 | H3-World | 未发现 |
-| SoulX-LiveAct / FlashHead | FlashHead 代码已固定到 `9bc03de`；权重未下载 |
-| TalkVerse 数据 | 未发现 |
+| SoulX-LiveAct / FlashHead | FlashHead 代码已固定到 `9bc03de`；权重已下载（Model_Lite/Pro + VAE，约 14 GiB） |
+| TalkVerse 数据 | 元数据 parquet 已下载（约 937 MiB）；源视频未获取 |
 | 项目 Conda 环境 | 唯一环境位于 `/mnt/data/yetbye/envs/h3-interactive`，启动名 `h3-interactive`；当前为 `talkverse` profile，已导出锁文件并完成项目 editable 安装 |
 | Wan2.2-TI2V-5B | 官方 ModelScope 22 个文件下载完成，约 32 GiB；分片检查与 SHA-256 生成完成，尚未推理 |
 | TalkVerse LoRA | revision `3a58ee5`，约 2.0 GiB；SHA-256 与 safetensors 头检查通过 |
@@ -55,14 +55,14 @@
 
 - GPU：1× NVIDIA A100 80 GB PCIe。
 - 驱动：580.173.02。
-- `/mnt/data`：约 3.6 TB，总剩余约 2.2 TB。
-- `/mnt/data/yetbye`：约占 401 GB。
+- `/mnt/data`：约 3.6 TB，总剩余约 2.0 TB。
+- `/mnt/data/yetbye`：约占 601 GB。
 - 检查时没有属于本项目的训练或推理进程。
 - 2026-09-25 最近一次检查时，A100 正由其他用户的 4 个计算进程满载使用；本项目的受保护 runner 已按预期拒绝启动。
 
 ## 4. 外部生态最新状态
 
-以下项目已经公开；其中 MiniMax-H3、SolarWM、TalkVerse 和 FlashHead 源码已部署到当前服务器，但权重与数据尚未部署：
+以下项目已经公开；其中 MiniMax-H3、SolarWM、TalkVerse 和 FlashHead 源码已部署到当前服务器，H3 Ref2VA、FlashHead、Wav2Vec2、Wan2.2-TI2V-5B 与 TalkVerse LoRA 权重已部署；H3 FL2VA、SolarWM-H3 权重与 TalkVerse 源数据尚未部署：
 
 | 外部项目 | 截至 2026-09-23 的公开状态 | 与本项目的关系 |
 | --- | --- | --- |
@@ -97,8 +97,8 @@
 
 ### 未完成
 
-- [ ] 尚未接受/归档 MiniMax H3 Community License。
-- [ ] 尚未下载 MiniMax H3 权重或 adapter。
+- [x] 已接受并归档 MiniMax H3 Community License（2026-08-02 版），区域与负责人确认完成（`docs/LICENSE_REVIEW.md`）。
+- [x] 已下载 MiniMax H3 Ref2VA 任务族权重（82/82 文件，约 135 GiB）；FL2VA 与 SolarWM-H3 权重待训练阶段前下载。
 - [ ] 尚未运行 H3、SolarWM-H3 或 TaoMate-H3 基线。
 - [ ] 尚未下载 TalkVerse 样本或建立数据契约。
 - [x] 已定位并完成现有实时视频系统 `D:\venus\digital-human-livestream-main` 的只读接口审计；尚未完成真实模型运行验证。
@@ -107,7 +107,7 @@
 - [x] 已在服务器项目实现私有 HTTP 模型服务 API；临时 loopback 与 MockBackend 合计 8/8 CPU 测试通过，无残留服务进程。
 - [x] 已实现服务器项目统一维护的异步 Python 客户端 SDK；完整 CPU 回归 10/10 通过。
 - [x] 已完成安全 loopback 服务启动器与 SSH 隧道跨主机 Mock smoke；12/12 回归通过，清理后无残留服务或端口。
-- [ ] FlashHead 无 GPU backend 合同与上游接口审计已完成，15/15 CPU 回归通过；真实 runtime、权重加载和出帧尚未完成。
+- [ ] FlashHead 真实 runtime 已实现并通过 CPU 侧 8/8 单测，权重已下载；headless 基线实验就绪，真实 GPU 出帧待 A100 空闲。
 - [ ] 尚未实现 H3 音频条件、AR 流式或步数蒸馏改造。
 
 ### 无法从当前材料验证
@@ -134,7 +134,7 @@
 | 只有单 A100 | 无法按公开默认配置训练 H3 | 获得 4-8 卡节点，或先仅使用已发布权重 |
 | TalkVerse/Wan 联合加载尚未验证 | 权重布局审计已通过，但当前不能宣称预录音频生成可运行 | GPU 空闲后完成受保护的真实样本推理 |
 | A100 当前由其他用户任务占用 | 立即测试会争抢共享 GPU 资源 | 等现有计算进程结束后运行项目 runner |
-| H3 许可证尚未归档确认 | 影响下载、训练和对外服务 | 团队确认并记录许可适用性 |
+| ~~H3 许可证尚未归档确认~~ | ~~影响下载、训练和对外服务~~ | 2026-09-25 已归档并逐条核验；对外服务前仍需单独合规复核 |
 
 ## 8. 下一里程碑
 
